@@ -7,3 +7,7 @@ Before I move the website to production and connect it to Stellar public network
 ## How to host a QA hub
 
 ## How to get paid
+
+### Getting paid for setting up a hub
+
+### Getting paid for usage
