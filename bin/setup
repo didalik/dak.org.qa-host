@@ -1,0 +1,7 @@
+#!/bin/bash
+
+setup_qa_hub () { # {{{1
+  echo "- $0 started on $(date)"
+}
+
+setup_qa_hub
