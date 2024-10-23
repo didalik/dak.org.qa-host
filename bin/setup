@@ -6,7 +6,7 @@ _add_qa_account () { # {{{1
 }
 
 _add_tester_account () { # {{{1
-  local user=$3 userdesc=$4
+  local user=$1 userdesc=$2
   echo "- _add_tester_account started on $(date) $user $userdesc"
 }
 
@@ -19,10 +19,10 @@ _copy_ssh_configs () { # TODO make it better {{{1
 }
 
 setup_qa_hub () { # {{{1
-  echo "- $0 started on $(date) $#: $@"
   _copy_ssh_configs
-  _add_qa_account $@
-  _add_tester_account $@
+  _add_qa_account $1 $2
+  _add_tester_account $3 $4
 }
 
-setup_qa_hub $@
+echo "- $0 started on $(date) $#: $@"
+setup_qa_hub $1 $2 $3 $4
