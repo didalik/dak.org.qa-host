@@ -1,5 +1,16 @@
 #!/bin/bash
 
+_add_qa_account () { # {{{1
+  local user=$1 userdesc=$2
+  echo "- __add_qa_account started on $(date) $#: $@"
+  shift 2
+}
+
+_add_tester_account () { # {{{1
+  local user=$1 userdesc=$2
+  echo "- __add_tester_account started on $(date) $#: $@"
+}
+
 _copy_ssh_configs () { # TODO make it better {{{1
   [ -e /etc/ssh/ssh_config.pre-hub4qa ] && return
   echo "- _copy_ssh_configs started on $(date)"
@@ -10,6 +21,8 @@ _copy_ssh_configs () { # TODO make it better {{{1
 
 setup_qa_hub () { # {{{1
   _copy_ssh_configs
+  _add_qa_account $@
+  _add_tester_account $@
 }
 
-setup_qa_hub
+setup_qa_hub $@
