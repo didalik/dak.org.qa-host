@@ -3,6 +3,8 @@
 _copy_ssh_configs () { # TODO make it better {{{1
   [ -e /etc/ssh/ssh_config.pre-hub4qa ] && return
   echo "- _copy_ssh_configs started on $(date)"
+  sudo cp /etc/ssh/ssh_config /etc/ssh/ssh_config.pre-hub4qa
+  sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.pre-hub4qa
   sudo cp etc/ssh/ssh*config /etc/ssh/
 }
 
