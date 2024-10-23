@@ -2,12 +2,12 @@
 
 _add_qa_account () { # {{{1
   local user=$1 userdesc=$2
-  echo "- __add_qa_account started on $(date) $user $userdesc"
+  echo "- _add_qa_account started on $(date) $user $userdesc"
 }
 
 _add_tester_account () { # {{{1
   local user=$3 userdesc=$4
-  echo "- __add_tester_account started on $(date) $user $userdesc"
+  echo "- _add_tester_account started on $(date) $user $userdesc"
 }
 
 _copy_ssh_configs () { # TODO make it better {{{1
@@ -19,10 +19,10 @@ _copy_ssh_configs () { # TODO make it better {{{1
 }
 
 setup_qa_hub () { # {{{1
+  echo "- $0 started on $(date) $#: $@"
   _copy_ssh_configs
   _add_qa_account $@
   _add_tester_account $@
 }
 
-echo "- $0 started on $(date) $#: $@"
-setup_qa_hub $@
+setup_qa_hub
