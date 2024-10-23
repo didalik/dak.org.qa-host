@@ -20,9 +20,9 @@ _copy_ssh_configs () { # TODO make it better {{{1
 
 setup_qa_hub () { # {{{1
   _copy_ssh_configs
-  _add_qa_account $1 $2
-  _add_tester_account $3 $4
+  _add_qa_account $1 "$2"
+  _add_tester_account $3 "$4"
 }
 
 echo "- $0 started on $(date) $#: $@"
-setup_qa_hub $1 $2 $3 $4
+setup_qa_hub $1 "$2" $3 "$4"
