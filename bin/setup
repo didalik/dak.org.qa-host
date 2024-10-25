@@ -24,8 +24,7 @@ setup_qa_hub () { # {{{1
   _copy_ssh_configs
   _add_qa_account $1 "$2"
   _add_tester_account $3 "$4"
-  ls -la /home
-  cat /etc/passwd
+  ls -la /home/{alik,qa,tester}/.ssh
 }
 
 echo "- $0 started on $(date) $#: $@"
