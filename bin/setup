@@ -26,7 +26,7 @@ setup_qa_hub () { # {{{1
   _copy_ssh_configs
   _add_qa_account $1 "$2"
   _add_tester_account $3 "$4"
-  ls -la /home/alik/.ssh
+  ls -la /home/$USER/.ssh
   sudo -u $1 ls -la /home/$1/.ssh
   sudo -u $3 ls -la /home/$3/.ssh
 }
