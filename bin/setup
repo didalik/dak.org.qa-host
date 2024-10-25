@@ -3,11 +3,13 @@
 _add_qa_account () { # {{{1
   local user=$1 userdesc=$2
   echo "- _add_qa_account started on $(date) $user $userdesc"
+  sudo useradd -md /home/$user -c "$userdesc" -s /bin/bash -k $user -U $user
 }
 
 _add_tester_account () { # {{{1
   local user=$1 userdesc=$2
   echo "- _add_tester_account started on $(date) $user $userdesc"
+  sudo useradd -md /home/$user -c "$userdesc" -s /bin/bash -k $user -U $user
 }
 
 _copy_ssh_configs () { # TODO make it better {{{1
