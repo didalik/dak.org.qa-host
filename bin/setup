@@ -1,15 +1,8 @@
 #!/bin/bash
 
-_add_qa_account () { # {{{1
+_add_account () { # {{{1
   local user=$1 userdesc=$2
-  echo "- _add_qa_account started on $(date) $user $userdesc"
-  sudo useradd -md /home/$user -c "$userdesc" -s /bin/bash -k $user -U $user
-  sudo -u $user chmod 600 /home/$user/.ssh/authorized_keys
-}
-
-_add_tester_account () { # {{{1
-  local user=$1 userdesc=$2
-  echo "- _add_tester_account started on $(date) $user $userdesc"
+  echo "- _add_account started on $(date) $user $userdesc"
   sudo useradd -md /home/$user -c "$userdesc" -s /bin/bash -k $user -U $user
   sudo -u $user chmod 600 /home/$user/.ssh/authorized_keys
 }
@@ -24,8 +17,8 @@ _copy_ssh_configs () { # TODO make it better {{{1
 
 setup_qa_hub () { # {{{1
   _copy_ssh_configs
-  _add_qa_account $1 "$2"
-  _add_tester_account $3 "$4"
+  _add_account $1 "$2"
+  _add_account $3 "$4"
 
   ls -la /home/$USER/.ssh
   sudo -u $1 ls -la /home/$1/.ssh
