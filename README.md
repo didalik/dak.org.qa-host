@@ -16,3 +16,4 @@ Before I move the website to production and connect it to Stellar public network
 
 159.250.189.50 qa update on Fri Nov  1 07:43:26 PM UTC 2024
 159.250.189.50 qa update on Fri Nov  1 07:56:42 PM UTC 2024
+159.250.189.50 tester update on Fri Nov  1 07:56:44 PM UTC 2024
