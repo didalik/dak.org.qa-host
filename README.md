@@ -15,9 +15,15 @@ Before I move the website to production and connect it to Stellar public network
 ## Testing history
 
 159.250.189.50 qa update on Fri Nov  1 07:43:26 PM UTC 2024
+
 159.250.189.50 qa update on Fri Nov  1 07:56:42 PM UTC 2024
+
 159.250.189.50 tester update on Fri Nov  1 07:56:44 PM UTC 2024
+
 159.250.189.50 qa update on Sat Nov  2 08:12:50 EDT 2024
+
 159.250.189.50 tester update on Sat Nov  2 08:13:16 EDT 2024
+
 159.250.189.50 qa update on Sun Nov  3 01:38:51 UTC 2024
+
 159.250.189.50 tester update on Sun Nov  3 01:38:56 UTC 2024
