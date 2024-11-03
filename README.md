@@ -12,6 +12,18 @@ Before I move the website to production and connect it to Stellar public network
 
 ### Getting paid for usage
 
+## The `dak-util-meta` repository
+
+To get the `main` branch of the `dak-util-meta` repository:
+
+```
+mkdir -p $HOME/people/didalik/dak/util
+cd $HOME/people/didalik/dak/util
+git clone ssh://ubuntu@159.250.189.50:/home/ubuntu/people/didalik/dak/util/meta
+cd meta
+git checkout main
+```
+
 ## Testing history
 
 159.250.189.50 qa update on Fri Nov  1 07:43:26 PM UTC 2024
