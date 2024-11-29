@@ -8,7 +8,8 @@ Before I move the website to production and connect it to Stellar public network
 
 To clone the QA hub from my Ubuntu box to yours:
 
-- clone this repo to your Ubuntu box and run `bin`
+- clone this repo to your Ubuntu box and run the `bin/setup` script - this will create the `qa` account on your Ubuntu box and email me its public key;
+- after I add your public key to my Ubuntu box, login to your `qa` account and run `ssh qa@159.250.189.50 setup` to complete the setup.
 
 ## How to get paid
 
