@@ -6,6 +6,10 @@ Before I move the website to production and connect it to Stellar public network
 
 ## How to host a QA hub
 
+To clone the QA hub from my Ubuntu box to yours:
+
+- clone this repo to your Ubuntu box and run `bin`
+
 ## How to get paid
 
 ### Getting paid for setting up a hub
