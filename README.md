@@ -6,14 +6,25 @@ Before I move the website to production and connect it to Stellar public network
 
 ## How to host a QA hub
 
-To clone the QA hub from my Ubuntu box to yours:
+To clone our QA hub from my Ubuntu box to yours, you have to be a sudoer there. A sudoer does not have to enter a password to execute a `sudo` command. For example, on my box I have account `alik`. To make `alik` a sudoer, I run:
 
-- clone this repo to your Ubuntu box, `cd dak.org.qa-host` and run the `bin/setup` script - this will create the `qa` account on your Ubuntu box;
-- send me either the IP address of your Ubuntu box or the public key of its `qa` account, `/home/qa/.ssh/id_ed25519.pub`;
-- if I receive your IP address, I shall have the setup completed for you; otherwise,
-- after I add your public key to my Ubuntu box, login to your `qa` account and run `ssh qa@159.250.189.50 setup` to complete the setup.
+```
+echo "alik  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/alik
+```
 
-You are now hosting the QA hub for us. Get paid!
+Please make sure you are a sudoer, then run:
+
+```
+git clone git@github.com:didalik/dak.org.qa-host.git
+cd dak.org.qa-host.git
+bin/setup
+```
+
+This will create the `qa` and `tester` accounts on your Ubuntu box. These are regular accounts, unable to run `sudo`. This will also create another, temporary, regular account called `guest`. This account will effectively pass your IP address to my box and will be deleted right after.
+
+As soon as my box gets your IP address, it connects to `qa` account on your box and completes the setup. The whole thing takes less than a minute to complete.
+
+You are now hosting yet another QA hub for us. Get paid!
 
 ## How to get paid
 

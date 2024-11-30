@@ -26,4 +26,4 @@ setup_qa_hub () { # {{{1
 }
 
 echo "- $0 started on $(date) $#: $@"
-setup_qa_hub $1 "$2" $3 "$4"
+setup_qa_hub qa 'QA box owner' tester 'The tester role'
