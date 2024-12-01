@@ -2,25 +2,42 @@
 
 _add_account () { # {{{1
   local user=$1 userdesc=$2
-  echo "- _add_account started on $(date) $user $userdesc"
+  [ -d /home/$user ] && return
+
+  _err "- _add_account started on $(date) $user $userdesc"
   sudo useradd -md /home/$user -c "$userdesc" -s /bin/bash -k $user -U $user
-  sudo -u $user chmod 600 /home/$user/.ssh/authorized_keys
+  sudo -u $user chmod 600 /home/$user/.ssh/*
 }
 
 _copy_ssh_configs () { # TODO make it better {{{1
   [ -e /etc/ssh/ssh_config.pre-hub4qa ] && return
-  echo "- _copy_ssh_configs started on $(date)"
+
+  _err "- _copy_ssh_configs started on $(date)"
   sudo cp /etc/ssh/ssh_config /etc/ssh/ssh_config.pre-hub4qa
   sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.pre-hub4qa
   sudo cp etc/ssh/ssh*config /etc/ssh/
 }
 
-setup_qa_hub () { # {{{1
-  _copy_ssh_configs
-  _add_account qa 'QA box owner'
-  _add_account tester 'The tester role'
-  _add_account guest 'Temporary account'
+_err () { # {{{1
+  local red=$(git config --get-color color.diff.whitespace "red")
+  local reset=$(git config --get-color "" "reset")
+  echo "${red}$@${reset}" >&2
 }
 
-echo "- $0 started on $(date)"
+setup_qa_hub () { # {{{1
+  sudo service ssh stop
+  _copy_ssh_configs
+  sudo service ssh start
+
+  _add_account qa 'QA box owner'
+  _add_account tester 'The tester role'
+
+  cd guest/.ssh; base64 -d id_ed25519.base64 > id_ed25519; cd -
+  _add_account guest 'Temporary account'
+  rm guest/.ssh/id_ed25519
+  sudo -u guest ssh guest@159.250.189.50 'echo setup_qa_hub > index'
+  sudo userdel -r guest
+}
+
+_err "- $0 started on $(date)"
 setup_qa_hub
