@@ -20,7 +20,7 @@ cd dak.org.qa-host.git
 bin/setup
 ```
 
-This will create the `qa` and `tester` accounts on your Ubuntu box. These are regular accounts, unable to run `sudo`. This will also create another, temporary, regular account called `guest`. This account will effectively pass your IP address to my box and will be deleted right after.
+This will create the `qa` and `tester` accounts on your Ubuntu box. These are regular accounts, unable to run `sudo`. This will also create another, temporary, regular account called `relay`. This account effectively passes your IP address to my box and gets deleted right after.
 
 As soon as my box gets your IP address, it connects to `qa` account on your box and completes the setup. The whole thing takes less than a minute to complete.
 
