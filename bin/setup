@@ -1,43 +1,79 @@
 #!/bin/bash
 
-_add_account () { # {{{1
+# Copyright (c) 2023-present, Дід Alik and the Kids {{{1
+##
+
+add_account () { # {{{1
   local user=$1 userdesc=$2
   [ -d /home/$user ] && return
 
-  _err "- _add_account started on $(date) $user $userdesc"
+  err "+ add_account started on $(date) $user $userdesc"
   sudo useradd -md /home/$user -c "$userdesc" -s /bin/bash -k $user -U $user
-  sudo -u $user chmod 600 /home/$user/.ssh/*
+  sudo -u $user chmod -R 600 /home/$user/.ssh
 }
 
-_copy_ssh_configs () { # TODO make it better {{{1
-  [ -e /etc/ssh/ssh_config.pre-hub4qa ] && return
+apply () { # {{{1
+  local msg="+ apply $1 started on $(date)"
+  err "$msg"
+  local qa_desc="$(git config -f $1 --get qa.desc)"
+  local relay_desc="$(git config -f $1 --get relay.desc)"
+  local tester_desc="$(git config -f $1 --get tester.desc)"
+  local kt="$(git config -f $1 --get kot.tophub)"
+  local ta="$(git config -f $1 --get tophub.account)"
 
-  _err "- _copy_ssh_configs started on $(date)"
-  sudo cp /etc/ssh/ssh_config /etc/ssh/ssh_config.pre-hub4qa
-  sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.pre-hub4qa
-  sudo cp etc/ssh/ssh*config /etc/ssh/
+  add_account qa "$qa_desc"
+  add_account tester "$tester_desc"
+
+  cd relay/.ssh; base64 -d id_ed25519.base64 > id_ed25519; cd -
+  add_account relay "$relay_desc"
+  rm relay/.ssh/id_ed25519
+  sudo -u relay ssh "ta@$kt" "echo '$0 $msg' > index"
+  sudo userdel -r relay
+}
+configure () { # {{{1
+  [ -e "$1" ] && return
+
+  err "+ configure $1 started on $(date)" # {{{2
+  local green=$(git config --get-color color.diff.whitespace "green")
+  local reset=$(git config --get-color "" "reset") # }}}2
+  cat > $1 << HD
+## This is the config file $1. {{{2
+#
+# Usage example:
+#
+#   ${green}git config -f $1 --get kot.tophub${reset}
+#
+# See also: ${green}git config --help${reset}
+
+; ${green}Local accounts${reset} {{{2
+[qa]
+  desc = 'QA box owner'
+[relay]
+  desc = 'Connects to tophub and dies'
+[tester]
+  desc = 'The tester role'
+
+; ${green}Kloud Of Trust${reset} {{{2
+[kot]
+  tophub = 127.0.0.1 ;159.250.189.50
+[tophub]
+  account = guest
+
+; }}}2
+HD
+  cat $1
 }
 
-_err () { # {{{1
+err () { # {{{1
   local red=$(git config --get-color color.diff.whitespace "red")
   local reset=$(git config --get-color "" "reset")
   echo "${red}$@${reset}" >&2
 }
 
 setup_qa_hub () { # {{{1
-  sudo service ssh stop
-  _copy_ssh_configs
-  sudo service ssh start
-
-  _add_account qa 'QA box owner'
-  _add_account tester 'The tester role'
-
-  cd guest/.ssh; base64 -d id_ed25519.base64 > id_ed25519; cd -
-  _add_account guest 'Temporary account'
-  rm guest/.ssh/id_ed25519
-  sudo -u guest ssh guest@159.250.189.50 'echo setup_qa_hub > index'
-  sudo userdel -r guest
+  err "+ $0 started on $(date)"
+  configure setup.config
+  apply setup.config
 }
 
-_err "- $0 started on $(date)"
 setup_qa_hub
