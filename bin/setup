@@ -33,6 +33,7 @@ apply () { # {{{1
   sudo -u relay ssh "$ta@$kt" "echo '$0 $msg' > index"
   sudo userdel -r relay
 }
+
 configure () { # {{{1
   [ -e "$1" ] && return
 
