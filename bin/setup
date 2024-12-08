@@ -10,7 +10,9 @@ add_account () { # {{{1
 
   err "+ add_account $user $userdesc started on $(date)"
   sudo useradd -md $hu -c "$userdesc" -s /bin/bash -k $user -U $user
-  sudo chmod 700 $hu/.ssh; sudo chmod 600 $hu/.ssh/* # FIXME
+  sudo chmod 700 $hu/.ssh
+  sudo [ -e $hu/.ssh/id_ed25519.base64 ] && sudo rm $hu/.ssh/id_ed25519.base64
+  sudo [ -e $hu/.ssh/id_ed25519 ] && sudo chmod 600 $hu/.ssh/id_ed25519
   sudo ls -la $hu/.ssh
 }
 
@@ -28,7 +30,6 @@ apply () { # {{{1
 
   cd relay/.ssh; base64 -d id_ed25519.base64 > id_ed25519; cd -
   add_account relay "$relay_desc"
-  sudo chmod 600 /home/relay/.ssh/id_ed25519 # TODO remove when fixed
   rm relay/.ssh/id_ed25519
   sudo -u relay ssh "$ta@$kt" "echo '$0 $msg' > index"
   sudo userdel -r relay
