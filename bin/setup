@@ -27,9 +27,9 @@ apply () { # {{{1
 
   add_account qa "$qa_desc"
   add_account tester "$tester_desc"
-
   cd relay/.ssh; base64 -d id_ed25519.base64 > id_ed25519; cd -
   add_account relay "$relay_desc"
+  ssh-keyscan $kt 2> /dev/null | sudo -u relay tee /home/relay/.ssh/known_hosts > /dev/null
   rm relay/.ssh/id_ed25519
   sudo -u relay ssh "$ta@$kt" "echo '$0 $msg' > index"
   sudo userdel -r relay
@@ -75,10 +75,16 @@ err () { # {{{1
   echo "${red}$@${reset}" >&2
 }
 
-setup_qa_hub () { # {{{1
+setup_qahub () { # {{{1
   err "+ $0 started on $(date)"
   configure setup.config
   apply setup.config
 }
 
-setup_qa_hub
+setup_qahub
+sudo -u qa tail -F /home/qa/out
+
+##
+# tested with
+# :!clear;sudo userdel -r qa;sudo userdel -r tester;bin/setup
+##

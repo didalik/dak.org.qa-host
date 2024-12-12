@@ -1,5 +1,6 @@
 # Setup {{{1
 setup.config
+out
 
 # Vim {{{1
 .*.sw?
