@@ -31,5 +31,3 @@ You are now hosting yet another QA hub for us. Get paid!
 ### Getting paid for setting up a hub
 
 ### Getting paid for usage
-
-d
